@@ -25,7 +25,7 @@ class UrlCacheAppHelper extends Helper {
  *
  * @return void
  */
-  function beforeRender() {
+  function beforeRender($viewFile) {
   	if (empty($this->request)) {
   		return;
   	}
@@ -50,7 +50,7 @@ class UrlCacheAppHelper extends Helper {
  *
  * @return void
  */
-  function afterLayout() {
+  function afterLayout($layoutFile) {
 	$done = Configure::read('UrlCache.runtime.afterLayout');
 	if (!$done) {
 		Cache::write($this->_key, UrlCacheManager::$cache, '_cake_core_');
@@ -97,7 +97,7 @@ class UrlCacheManager {
 /**
  * Returns the stored url if it was already generated, false otherwise
  *
- * @param string $key 
+ * @param string $key
  * @return mixed
  */
 	public static function get($key) {
@@ -107,7 +107,7 @@ class UrlCacheManager {
 /**
  * Stores a ney key in memory cache
  *
- * @param string $key 
+ * @param string $key
  * @param mixed data to be stored
  * @return void
  */
