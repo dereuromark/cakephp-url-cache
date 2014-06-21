@@ -1,23 +1,21 @@
 <?php
 
-/*
-* App Helper url caching
-* Copyright (c) 2009 Matt Curry
-* www.PseudoCoder.com
-* http://github.com/mcurry/cakephp/tree/master/snippets/app_helper_url
-* http://www.pseudocoder.com/archives/2009/02/27/how-to-save-half-a-second-on-every-cakephp-requestand-maintain-reverse-routing
-*
-* @author		Matt Curry <matt@pseudocoder.com>
-* @author		José Lorenzo Rodríguez
-* @license		MIT
-*
-* @modified 	Mark Scherer
-*/
-
 App::uses('Helper', 'View');
 App::uses('Inflector', 'Utility');
 App::uses('UrlCacheManager', 'UrlCache.Routing');
 
+/**
+ * App Helper url caching
+ * Copyright (c) 2009 Matt Curry
+ * www.PseudoCoder.com
+ * http://github.com/mcurry/cakephp/tree/master/snippets/app_helper_url
+ * http://www.pseudocoder.com/archives/2009/02/27/how-to-save-half-a-second-on-every-cakephp-requestand-maintain-reverse-routing
+ *
+ * @author		Matt Curry <matt@pseudocoder.com>
+ * @author		José Lorenzo Rodríguez
+ * @author		Mark Scherer
+ * @license		MIT
+ */
 class UrlCacheAppHelper extends Helper {
 
 	/**
@@ -25,10 +23,13 @@ class UrlCacheAppHelper extends Helper {
 	 *
 	 * @return void
 	 */
-	public function beforeRender($viewFile = null) {
+	public function beforeRender($viewFile) {
 		if (!Configure::read('UrlCache.active') || Configure::read('UrlCache.runtime.beforeRender')) {
 			return;
 		}
+		if (empty($this->request)) {
+ 			return;
+ 		}
 
 		# todo: maybe lazy load with HtmlHelper::url()?
 		UrlCacheManager::init($this->_View);
@@ -40,10 +41,13 @@ class UrlCacheAppHelper extends Helper {
 	 *
 	 * @return void
 	 */
-	public function afterLayout($layoutFile = null) {
+	public function afterLayout($layoutFile) {
 		if (!Configure::read('UrlCache.active') || Configure::read('UrlCache.runtime.afterLayout')) {
 			return;
 		}
+		if (empty($this->request)) {
+ 			return;
+ 		}
 
 		UrlCacheManager::finalize();
 		Configure::write('UrlCache.runtime.afterLayout', true);

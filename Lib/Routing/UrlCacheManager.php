@@ -8,8 +8,6 @@
  * - now easier to integrate
  * - optimization for `pageFiles` (still stores urls with only controller/action keys in global file)
  * - can handle legacy `prefix` urls
- *
- * 2012-02-13 ms
  */
 class UrlCacheManager {
 
@@ -59,6 +57,7 @@ class UrlCacheManager {
 	/**
 	 * should be called in beforeRender()
 	 *
+	 * @return void
 	 */
 	public static function init(View $View) {
 		$params = $View->request->params;
@@ -97,6 +96,7 @@ class UrlCacheManager {
 	/**
 	 * should be called in afterLayout()
 	 *
+	 * @return void
 	 */
 	public static function finalize() {
 		Cache::write(self::$cacheKey, self::$cache, '_cake_core_');
