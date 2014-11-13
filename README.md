@@ -15,13 +15,19 @@ If debug is set to greater than 0 the cache expires in 10 seconds.  With debug a
 
    App::uses('UrlCacheAppHelper', 'UrlCache.View/Helper');
 
-3. Have your AppHelper extend UrlCacheAppHelper instead of Helper
+3. Load and activate Plugin in app/Config/bootstrap.php
+
+   CakePlugin::load('UrlCache');
+ 
+   Configure::write('UrlCache.active', true);
+
+4. Have your AppHelper extend UrlCacheAppHelper instead of Helper
 
 	class AppHelper extends UrlCacheAppHelper {
 		...
 	}
 
-4. Thats it!  Just continue using $this->Html->link as you usually do.
+5. Thats it!  Just continue using $this->Html->link as you usually do.
 
 By default all the cache will be stored in one file. This is only recommended for sites with not many links.
 If your site has a ton of unique urls you don't want to store them all in one giant cache which would need to be loaded each request.
