@@ -75,15 +75,20 @@ class UrlCacheTest extends CakeTestCase {
 	public function testUrlWithParams() {
 		$this->HtmlHelper->url(array('controller' => 'posts'), true);
 		$this->HtmlHelper->url(array('controller' => 'posts', 'action' => 'view', '3'));
+		$this->HtmlHelper->url(array('controller' => 'posts', 'action' => 'index', 'Test' => array('test')));
 
 		$this->assertEqual(array('8f45f5c31d138d700742b01ccb673e1e'), array_keys(UrlCacheManager::$cache));
-		$this->assertEqual(array('e2ff5470228f80f98b2be7ddbcab340d'), array_keys(UrlCacheManager::$cachePage));
+		$cacheKeys = array_keys(UrlCacheManager::$cachePage);
+		$this->assertEqual('e2ff5470228f80f98b2be7ddbcab340d', $cacheKeys[0]);
+		$this->assertEqual('8b94c1c80f3dc49fbf8bdaa1bfa4ea09', $cacheKeys[1]);
 
 		$this->HtmlHelper->afterLayout('foo');
 		$cache = Cache::read(UrlCacheManager::$cacheKey, '_cake_core_');
 		$this->assertEqual(array('8f45f5c31d138d700742b01ccb673e1e'), array_keys($cache));
 		$cache = Cache::read(UrlCacheManager::$cachePageKey, '_cake_core_');
-		$this->assertEqual(array('e2ff5470228f80f98b2be7ddbcab340d'), array_keys($cache));
+		$cacheKeys = array_keys($cache);
+		$this->assertEqual('e2ff5470228f80f98b2be7ddbcab340d', $cacheKeys[0]);
+		$this->assertEqual('8b94c1c80f3dc49fbf8bdaa1bfa4ea09', $cacheKeys[1]);
 	}
 
 	public function testUrlWithDifferentOrders() {
