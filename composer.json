@@ -1,5 +1,5 @@
 {
-	"name": "dereuromark/url_cache",
+	"name": "dereuromark/cakephp-url-cache",
 	"description": "CakePHP plugin to speed up URL reverse lookup",
 	"type": "cakephp-plugin",
 	"keywords": [
@@ -7,7 +7,7 @@
 		"routing",
 		"helper"
 	],
-	"homepage": "https://github.com/dereuromark/url_cache",
+	"homepage": "https://github.com/dereuromark/cakephp-url-cache",
 	"license": "MIT",
 	"authors": [
 	],
