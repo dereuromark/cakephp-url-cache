@@ -55,6 +55,11 @@ class UrlCacheManager {
 	public static $paramFields = array('controller', 'plugin', 'action', 'prefix');
 
 	/**
+	 * @var bool
+	 */
+	public static $modified = false;
+
+	/**
 	 * should be called in beforeRender()
 	 *
 	 * @return void
@@ -99,6 +104,9 @@ class UrlCacheManager {
 	 * @return void
 	 */
 	public static function finalize() {
+		if (!self::$modified) {
+			return;
+		}
 		Cache::write(self::$cacheKey, self::$cache, '_cake_core_');
 		if (Configure::read('UrlCache.pageFiles') && !empty(self::$cachePage)) {
 			Cache::write(self::$cachePageKey, self::$cachePage, '_cake_core_');
@@ -148,6 +156,7 @@ class UrlCacheManager {
 	 * @return void
 	 */
 	public static function set($data) {
+		self::$modified = true;
 		if (Configure::read('UrlCache.pageFiles') && self::$type === 'cachePage') {
 			self::$cachePage[self::$key] = $data;
 		} else {

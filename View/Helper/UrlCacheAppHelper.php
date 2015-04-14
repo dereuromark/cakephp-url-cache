@@ -28,8 +28,8 @@ class UrlCacheAppHelper extends Helper {
 			return;
 		}
 		if (empty($this->request)) {
- 			return;
- 		}
+			return;
+		}
 
 		# todo: maybe lazy load with HtmlHelper::url()?
 		UrlCacheManager::init($this->_View);
@@ -46,8 +46,8 @@ class UrlCacheAppHelper extends Helper {
 			return;
 		}
 		if (empty($this->request)) {
- 			return;
- 		}
+			return;
+		}
 
 		UrlCacheManager::finalize();
 		Configure::write('UrlCache.runtime.afterLayout', true);
