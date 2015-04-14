@@ -83,7 +83,12 @@ class UrlCacheManager {
 			self::$cachePageKey = self::$cacheKey . $cachePageKey;
 			self::$cachePage = Cache::read(self::$cachePageKey, '_cake_core_');
 		}
-		self::$cache = Cache::read(self::$cacheKey, '_cake_core_');
+		if ($cache = Cache::read(self::$cacheKey, '_cake_core_')) {
+			self::$cache = $cache;
+		}
+		if (Configure::read('debug')) {
+			Configure::write('UrlCacheDebug.count', count(self::$cache));
+		}
 
 		# still old "prefix true/false" syntax?
 		if (Configure::read('UrlCache.verbosePrefixes')) {
@@ -104,8 +109,14 @@ class UrlCacheManager {
 	 * @return void
 	 */
 	public static function finalize() {
-		if (!self::$modified) {
+		if (Configure::read('debug')) {
+			Configure::write('UrlCacheDebug.values', self::$cache);
+		}
+		if (!self::$modified || empty(self::$cache)) {
 			return;
+		}
+		if (Configure::read('debug')) {
+			Configure::write('UrlCacheDebug.added', count(self::$cache) - Configure::read('UrlCacheDebug.count'));
 		}
 		Cache::write(self::$cacheKey, self::$cache, '_cake_core_');
 		if (Configure::read('UrlCache.pageFiles') && !empty(self::$cachePage)) {
