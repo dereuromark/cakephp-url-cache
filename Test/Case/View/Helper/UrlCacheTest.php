@@ -18,6 +18,8 @@ class UrlCacheTest extends CakeTestCase {
 		Configure::write('UrlCache.verbosePrefixes', true);
 		Configure::write('Routing.prefixes', array('admin'));
 
+		Router::reload();
+
 		$this->HtmlHelper = new FakeHtmlHelper(new View(new Controller(new CakeRequest('/test', false))));
 		$this->HtmlHelper->beforeRender('foo');
 	}
