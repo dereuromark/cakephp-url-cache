@@ -81,7 +81,12 @@ class UrlCacheManager {
 				$cachePageKey = '_' . $path;
 			}
 			self::$cachePageKey = self::$cacheKey . $cachePageKey;
-			self::$cachePage = Cache::read(self::$cachePageKey, '_cake_core_');
+			if ($cache = Cache::read(self::$cachePageKey, '_cake_core_')) {
+				self::$cachePage = $cache;
+			}
+			if (Configure::read('debug')) {
+				Configure::write('UrlCacheDebug.countPage', count(self::$cachePage));
+			}
 		}
 		if ($cache = Cache::read(self::$cacheKey, '_cake_core_')) {
 			self::$cache = $cache;
@@ -110,14 +115,17 @@ class UrlCacheManager {
 	 */
 	public static function finalize() {
 		if (Configure::read('debug')) {
-			Configure::write('UrlCacheDebug.values', self::$cache);
+			Configure::write('UrlCacheDebug.cache', self::$cache);
+			Configure::write('UrlCacheDebug.cachePage', self::$cachePage);
 		}
-		if (!self::$modified || empty(self::$cache)) {
+		if (!self::$modified || empty(self::$cache) && empty(self::$cacheKey)) {
 			return;
 		}
 		if (Configure::read('debug')) {
 			Configure::write('UrlCacheDebug.added', count(self::$cache) - Configure::read('UrlCacheDebug.count'));
+			Configure::write('UrlCacheDebug.addedPage', count(self::$cachePage) - Configure::read('UrlCacheDebug.countPage'));
 		}
+
 		Cache::write(self::$cacheKey, self::$cache, '_cake_core_');
 		if (Configure::read('UrlCache.pageFiles') && !empty(self::$cachePage)) {
 			Cache::write(self::$cachePageKey, self::$cachePage, '_cake_core_');

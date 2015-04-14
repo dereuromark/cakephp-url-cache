@@ -27,6 +27,8 @@ class UrlCacheTest extends CakeTestCase {
 	public function tearDown() {
 		Cache::delete(UrlCacheManager::$cacheKey, '_cake_core_');
 		Cache::delete(UrlCacheManager::$cachePageKey, '_cake_core_');
+		UrlCacheManager::$cache = [];
+		UrlCacheManager::$cachePage = [];
 		Configure::delete('UrlCache');
 
 		parent::tearDown();
