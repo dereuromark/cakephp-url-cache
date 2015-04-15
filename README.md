@@ -67,7 +67,7 @@ With a little sample script you can at least approximate the improvement for you
 // In your view ctp:
 $timeStart = microtime(true);
 
-$url = ['controller' => 'galleries', 'action' => 'view'];
+$url = ['controller' => 'posts', 'action' => 'view'];
 for ($i = 0; $i < 10000; $i++) {
 	$u = $url;
 	$u[] = $i;
