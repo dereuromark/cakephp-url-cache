@@ -48,7 +48,7 @@ and each page will additionally keep a separate cache for those unique URLs.
 Only the controller/action URLs without named or passed params will then be stored in the global cache.
 
 There is also a `Configure::write('UrlCache.verbosePrefixes', true)` param.
-It is useful if you defined some prefixes in your core.php like `Configure::write('Routing.prefixes', array('admin'));`
+It is useful if you defined some prefixes in your core.php like `Configure::write('Routing.prefixes', ['admin']);`
 and if you mainly still use the old 1.2/1.3 syntax for prefixes:
 ```
 'admin' => true/false
