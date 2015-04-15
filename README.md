@@ -1,5 +1,10 @@
 # CakePHP UrlCache plugin
-[![License](https://poser.pugx.org/dereuromark/cakephp-tools/license.png)](https://packagist.org/packages/dereuromark/cakephp-tools)
+[![Build Status](https://api.travis-ci.org/dereuromark/cakephp-url-cache.png?branch=master)](https://travis-ci.org/dereuromark/cakephp-url-cache)
+[![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-url-cache/v/stable.png)](https://packagist.org/packages/dereuromark/cakephp-url-cache)
+[![Coverage Status](https://coveralls.io/repos/dereuromark/cakephp-url-cache/badge.png)](https://coveralls.io/r/dereuromark/cakephp-url-cache)
+[![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%205.4-8892BF.svg)](https://php.net/)
+[![License](https://poser.pugx.org/dereuromark/cakephp-url-cache/license.png)](https://packagist.org/packages/dereuromark/cakephp-url-cache)
+[![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-url-cache/d/total.png)](https://packagist.org/packages/dereuromark/cakephp-url-cache)
 
 For CakePHP 2.x
 

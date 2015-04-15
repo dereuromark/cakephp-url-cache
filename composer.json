@@ -12,6 +12,7 @@
 	"authors": [
 	],
 	"require": {
+		"php": ">=5.4",
 		"composer/installers": "*"
 	},
 	"extra": {
