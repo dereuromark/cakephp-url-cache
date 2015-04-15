@@ -60,3 +60,25 @@ instead of
 ```
 
 The latter is more future proof, though.
+
+## Benchmark
+With a little sample script you can at least approximate the improvement for your (custom) routes:
+```php
+// In your view ctp:
+$timeStart = microtime(true);
+
+$url = ['controller' => 'galleries', 'action' => 'view'];
+for ($i = 0; $i < 10000; $i++) {
+	$u = $url;
+	$u[] = $i;
+	$link = $this->Html->link($i, $u);
+}
+
+$timeEnd = microtime(true);
+$time = $timeEnd - $timeStart;
+debug($time);
+```
+With the first request with my test it was 9 seconds, the second hit only 1 second.
+So in overall the speed improvement can be **around 10x faster**. It really depends on how dynamic your pages and URLs are, though.
+And the above 10000 links is not a realistic scenario, so the overall speed improvement compared to the whole dispatcher process
+will me usually a lot less. So you definitely should look into other bottlenecks, usually the DB, opcode caching, and dispatching speed in general.

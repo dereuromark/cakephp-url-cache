@@ -118,9 +118,11 @@ class UrlCacheManager {
 			Configure::write('UrlCacheDebug.cache', self::$cache);
 			Configure::write('UrlCacheDebug.cachePage', self::$cachePage);
 		}
-		if (!self::$modified || empty(self::$cache) && empty(self::$cacheKey)) {
+
+		if (!self::$modified || empty(self::$cache) && empty(self::$cachePage)) {
 			return;
 		}
+
 		if (Configure::read('debug')) {
 			Configure::write('UrlCacheDebug.added', count(self::$cache) - Configure::read('UrlCacheDebug.count'));
 			Configure::write('UrlCacheDebug.addedPage', count(self::$cachePage) - Configure::read('UrlCacheDebug.countPage'));
