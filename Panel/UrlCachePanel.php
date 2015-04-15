@@ -26,7 +26,7 @@ class UrlCachePanel extends DebugPanel {
 	 */
 	public function beforeRender(Controller $controller) {
 
-		return array();
+		return [];
 	}
 
 }

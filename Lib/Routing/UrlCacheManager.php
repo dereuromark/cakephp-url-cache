@@ -15,19 +15,19 @@ class UrlCacheManager {
 	 * Holds all generated urls so far by the application indexed by a custom hash
 	 *
 	 */
-	public static $cache = array();
+	public static $cache = [];
 
 	/**
 	 * Holds all generated urls so far by the application indexed by a custom hash
 	 *
 	 */
-	public static $cachePage = array();
+	public static $cachePage = [];
 
 	/**
 	 * Holds all generated urls so far by the application indexed by a custom hash
 	 *
 	 */
-	public static $extras = array();
+	public static $extras = [];
 
 	/**
 	 * type for the current set (triggered by last get)
@@ -52,7 +52,7 @@ class UrlCacheManager {
 	/**
 	 * params that will always be present and will determine the global cache if pageFiles is used
 	 */
-	public static $paramFields = array('controller', 'plugin', 'action', 'prefix');
+	public static $paramFields = ['controller', 'plugin', 'action', 'prefix'];
 
 	/**
 	 * @var bool
@@ -101,7 +101,7 @@ class UrlCacheManager {
 			self::$paramFields = array_merge(self::$paramFields, (array)Configure::read('Routing.prefixes'));
 		}
 		self::$extras = array_intersect_key($params, array_combine(self::$paramFields, self::$paramFields));
-		$defaults = array();
+		$defaults = [];
 		foreach (self::$paramFields as $field) {
 			$defaults[$field] = '';
 		}
