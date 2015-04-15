@@ -61,6 +61,14 @@ instead of
 
 The latter is more future proof, though.
 
+## Debugging
+With the de-facto-standard debugging tool [DebugKit](https://github.com/cakephp/debug_kit) you can enable a toolbar panel that allows
+you to see how many links have been used and/or added per page view.
+To enable it, you can add it to your $components configuration:
+```
+public $components = ['DebugKit.Toolbar' => ['panels' => ['UrlCache.UrlCache']]];
+```
+
 ## Benchmark
 With a little sample script you can at least approximate the improvement for your (custom) routes:
 ```php

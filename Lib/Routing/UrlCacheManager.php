@@ -162,10 +162,34 @@ class UrlCacheManager {
 				}
 			}
 			if (self::$type === 'cachePage') {
-				return isset(self::$cachePage[self::$key]) ? self::$cachePage[self::$key] : false;
+				if (isset(self::$cachePage[self::$key])) {
+					if (Configure::read('debug')) {
+						Configure::write('UrlCacheDebug.usedPage', (int)Configure::read('UrlCacheDebug.usedPage') + 1);
+					}
+					return self::$cachePage[self::$key];
+				}
+				if (Configure::read('debug')) {
+					$missed = (array)Configure::read('UrlCacheDebug.missedPage');
+					$missed[] = $url;
+					Configure::write('UrlCacheDebug.missedPage', $missed);
+					Configure::write('UrlCacheDebug.missedCountPage', (int)Configure::read('UrlCacheDebug.missedCountPage') + 1);
+				}
+				return false;
 			}
 		}
-		return isset(self::$cache[self::$key]) ? self::$cache[self::$key] : false;
+		if (isset(self::$cache[self::$key])) {
+			if (Configure::read('debug')) {
+				Configure::write('UrlCacheDebug.used', (int)Configure::read('UrlCacheDebug.used') + 1);
+			}
+			return self::$cache[self::$key];
+		}
+		if (Configure::read('debug')) {
+			$missed = (array)Configure::read('UrlCacheDebug.missed');
+			$missed[] = $url;
+			Configure::write('UrlCacheDebug.missed', $missed);
+			Configure::write('UrlCacheDebug.missedCount', (int)Configure::read('UrlCacheDebug.missedCount') + 1);
+		}
+		return false;
 	}
 
 	/**

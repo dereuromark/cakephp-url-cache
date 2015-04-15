@@ -5,7 +5,7 @@ App::uses('Inflector', 'Utility');
 App::uses('UrlCacheManager', 'UrlCache.Routing');
 
 /**
- * App Helper url caching
+ * App Helper URL caching
  * Copyright (c) 2009 Matt Curry
  * www.PseudoCoder.com
  * http://github.com/mcurry/cakephp/tree/master/snippets/app_helper_url
@@ -19,7 +19,7 @@ App::uses('UrlCacheManager', 'UrlCache.Routing');
 class UrlCacheAppHelper extends Helper {
 
 	/**
-	 * This function is responsible for setting up the Url cache before the application starts generating urls in views
+	 * This function is responsible for setting up the URL cache before the application starts generating urls in views.
 	 *
 	 * @return void
 	 */
@@ -37,7 +37,7 @@ class UrlCacheAppHelper extends Helper {
 	}
 
 	/**
-	 * This method will store the current generated urls into a persistent cache for next use
+	 * This method will store the current generated URLs into a persistent cache for next use.
 	 *
 	 * @return void
 	 */
@@ -54,21 +54,24 @@ class UrlCacheAppHelper extends Helper {
 	}
 
 	/**
-	 * Intercepts the parent url function to first look if the cache was already generated for the same params
+	 * Intercepts the parent URL function to first look if the cache was already generated for the same params
 	 *
-	 * @param mixed $url url to generate using cakephp array syntax
-	 * @param boolean $full wheter to generate a full url or not (http scheme)
+	 * @param mixed $url URL to generate using CakePHP array syntax
+	 * @param boolean $full whether to generate a full url or not (http scheme)
 	 * @return string
 	 * @see Helper::url()
 	 */
 	public function url($url = null, $full = false) {
+		if (Configure::read('UrlCache.runtime.afterLayout')) {
+			return parent::url($url, $full);
+		}
+
 		if (Configure::read('UrlCache.active')) {
 			if ($cachedUrl = UrlCacheManager::get($url, $full)) {
 				return $cachedUrl;
 			}
 		}
-
-		$routerUrl = h(Router::url($url, $full));
+		$routerUrl = parent::url($url, $full);
 		if (Configure::read('UrlCache.active')) {
 			UrlCacheManager::set($routerUrl);
 		}
