@@ -6,7 +6,7 @@ App::uses('DebugPanel', 'DebugKit.Lib');
  * Custom Panel for https://github.com/cakephp/debug_kit
  *
  * Activate it via
- *   'panels' => array('Maintenance.Fotograf')
+ *   'panels' => ['UrlCache.UrlCache']
  *
  */
 class UrlCachePanel extends DebugPanel {
